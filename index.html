@@ -4,40 +4,44 @@
 </head>
 <body>
   <div class="container">
-  <div id="error" class="alert alert-danger"></div>
-  <div id="answer"></div>
-  <form role="form">
-    <div class="form-group">
-      <label for="secret">secret</label>
-      <input id="secret" class="form-control" type="password">
-    </div>
-    <div class="form-group">
-      <label for="confirm-secret">confirm secret</label>
-      <input id="confirm-secret" class="form-control" type="password">
-    </div>
-    <div class="form-group">
-      <label for="password">password</label>
-      <input id="password" class="form-control" type="password"/>
-    </div>
-    <div class="form-group">
-      <button id="encrypt">Encrypt</button>
-    </div>
-  </form>
+  <div class="row">
+  <div class="col-md-12">
+    <div id="error" class="alert alert-danger hidden"></div>
+    <div id="answer" class="jumbotron hidden"></div>
+    <form role="form">
+      <div class="form-group">
+        <label for="secret">secret</label>
+        <input id="secret" class="form-control" type="password">
+      </div>
+      <div class="form-group">
+        <label for="confirm-secret">confirm secret</label>
+        <input id="confirm-secret" class="form-control" type="password">
+      </div>
+      <div class="form-group">
+        <label for="password">password</label>
+        <input id="password" class="form-control" type="password"/>
+      </div>
+      <div class="form-group">
+        <button id="encrypt">Encrypt</button>
+      </div>
+    </form>
 
 
-  <form role="form">
-    <div class="form-group">
-      <label for="secret-decrypt">secret</label>
-      <input id="secret-decrypt" class="form-control" type="password">
-    </div>
-    <div class="form-group">
-      <label for="encrypted-password">encrypted-password</label>
-      <input id="encrypted-password" class="form-control" type="text"/>
-    </div>
-    <div class="form-group">
-      <button id="decrypt">Decrypt</button>
-    </div>
-  </form>
+    <form role="form">
+      <div class="form-group">
+        <label for="secret-decrypt">secret</label>
+        <input id="secret-decrypt" class="form-control" type="password">
+      </div>
+      <div class="form-group">
+        <label for="encrypted-password">encrypted-password</label>
+        <input id="encrypted-password" class="form-control" type="text"/>
+      </div>
+      <div class="form-group">
+        <button id="decrypt">Decrypt</button>
+      </div>
+    </form>
+  </div>
+</div>
 </div>
   <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -48,12 +52,12 @@
      var secret = $("#secret").val();
      var confirmSecret = $("#confirm-secret").val();
      if(secret !== confirmSecret){
-       getErrorContainer().text("secrets dont match");
+       getErrorContainer().removeClass("hidden").text("secrets dont match");
        return;
      }
      var password = $("#password").val();
      var encrypted = CryptoJS.AES.encrypt(password, secret);
-     getAnswerContainer().text(encrypted);
+     getAnswerContainer().removeClass("hidden").text(encrypted);
   });
 
   $("#decrypt").click(function(event){
@@ -64,7 +68,7 @@
       encryptedPassword,
       secret
       );
-    getAnswerContainer().text(
+    getAnswerContainer().removeClass("hidden").text(
       decrypted.toString(CryptoJS.enc.Utf8)
     );
   });
